@@ -44,4 +44,5 @@ module.exports = grunt => {
     grunt.loadNpmTasks('grunt-contrib-uglify-es')
 
     grunt.registerTask("default", ["watch"])
+    grunt.registerTask("build", ["concat:js", "concat:deps", "uglify"])
 }
