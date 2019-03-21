@@ -78,6 +78,10 @@ window.addEventListener("load", async () => {
                 intensity: {
                     type: "f",
                     value: 1.0
+                },
+                gamma: {
+                    type: "f",
+                    value: 1
                 }
             },
             vertexShader: vertexShaderSource.text,
@@ -204,6 +208,10 @@ window.addEventListener("load", async () => {
 
     window.setIntensity = val => {
         boxMaterial.uniforms.intensity.value = 1 - val
+    }
+
+    window.setGamma = val => {
+        boxMaterial.uniforms.gamma.value = 1 - val
     }
 
     window.toggleInverted = () => {

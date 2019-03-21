@@ -14,13 +14,9 @@ class Filters {
             uniform float radius;
             uniform float intensity;
             uniform vec2 resolution;
+            uniform highp float gamma;
             varying vec2 vUv;
-
-
-            float rand(vec2 co){
-                return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
-            }
-
+                       
             void main() {
 
                 float w = 1.0 / width;
@@ -31,12 +27,22 @@ class Filters {
                 if (sqrt( (0.5 - vUv[0])*(0.5 - vUv[0]) + (0.5 - vUv[1])*(0.5 - vUv[1]) ) < radius) {
 
                     ${this[name+"Body"]}
-
+                   
                     gl_FragColor = newColour*(1.0-intensity) + pixel*intensity;
-
+                    
                     ${this.hasReducedColours ? this.reducedColoursBody : ""}
 
                     ${this.isInverted ? this.invertedBody : ""}
+                    
+                    //gamma
+                    gl_FragColor.r = pow(gl_FragColor.r, gamma);
+                    gl_FragColor.g = pow(gl_FragColor.g, gamma);
+                    gl_FragColor.b = pow(gl_FragColor.b, gamma);
+                         
+                    //quantise       
+                    vec3 color_resolution = vec3(8.0, 8.0, 4.0);
+                    vec3 color_bands = floor(gl_FragColor.rgb * color_resolution) / (color_resolution - 1.0);
+                    gl_FragColor = vec4(min(color_bands, 1.0), gl_FragColor.a);
 
                 } else {
                     gl_FragColor = vec4(pixel.rgb, 1.0);

@@ -34,6 +34,11 @@ const initUI = () => {
     const intensityValue = document.getElementById("intensity-value")
     intensitySlider.value = 100
 
+    // Intensity slider
+    const gammaSlider = document.getElementById("gamma-slider")
+    const gammaValue = document.getElementById("gamma-value")
+    gammaSlider.value = 100
+
     // Events
     document.addEventListener("click", ({ target }) => {
         if (target.dataset.filter) {
@@ -60,6 +65,15 @@ const initUI = () => {
 
     intensitySlider.addEventListener("mousemove", updateIntensity)
     intensitySlider.addEventListener("change", updateIntensity)
+
+    const updateGamma = ({ target }) => {
+        window.setGamma(target.value === "0" ? 0.01 : target.value / 100)
+        gammaValue.innerText = `${target.value}%`
+    }
+    updateGamma({target: gammaSlider})
+
+    gammaSlider.addEventListener("mousemove", updateGamma)
+    gammaSlider.addEventListener("change", updateGamma)
 
     invertedCheckbox.addEventListener("click", () => toggleInverted())
     reducedColoursCheckbox.addEventListener("click", () => toggleReducedColours())
