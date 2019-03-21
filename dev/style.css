@@ -54,11 +54,6 @@ select {
     font-weight: bold;
 }
 
-label[for="radius-slider"] {
-    display: flex;
-    align-items: center;
-}
-
 .filter-button {
     min-width: 120px;
     min-height: 50px;

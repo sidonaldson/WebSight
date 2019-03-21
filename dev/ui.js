@@ -63,16 +63,6 @@ const initUI = () => {
 
     invertedCheckbox.addEventListener("click", () => toggleInverted())
     reducedColoursCheckbox.addEventListener("click", () => toggleReducedColours())
-    surfaceCheckbox.addEventListener("click", () => toggleBackground(!Filters.hasBackground))
-
-    window.updateColour = (type, jscolor) => {
-        const rgb = {
-            r: Math.floor(jscolor.rgb[0]),
-            g: Math.floor(jscolor.rgb[1]),
-            b: Math.floor(jscolor.rgb[2])
-        }
-        type === 'edge' ? window.setEdgeColour(rgb) : window.setSurfaceColour(rgb)
-    }
 
 }
 

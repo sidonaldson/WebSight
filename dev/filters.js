@@ -9,8 +9,6 @@ class Filters {
     static compileShader (name) {
         return `
             uniform sampler2D texture;
-            uniform sampler2D fireTex;
-            uniform sampler2D noiseTex;
             uniform float width;
             uniform float height;
             uniform float radius;
@@ -18,17 +16,6 @@ class Filters {
             uniform vec2 resolution;
             varying vec2 vUv;
 
-            uniform float edgeR;
-            uniform float edgeG;
-            uniform float edgeB;
-
-            uniform float surfaceR;
-            uniform float surfaceG;
-            uniform float surfaceB;
-
-            uniform float fireTimer;
-            uniform float lightCols[5];
-            uniform float lightColsEnds[5];
 
             float rand(vec2 co){
                 return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
@@ -46,8 +33,6 @@ class Filters {
                     ${this[name+"Body"]}
 
                     gl_FragColor = newColour*(1.0-intensity) + pixel*intensity;
-
-                    ${this.hasBackground ? this.addBackground : ""}
 
                     ${this.hasReducedColours ? this.reducedColoursBody : ""}
 
@@ -72,14 +57,6 @@ class Filters {
             gl_FragColor.r = float(floor(gl_FragColor.r * 5.0 ) / 5.0);
             gl_FragColor.g = float(floor(gl_FragColor.g * 5.0 ) / 5.0);
             gl_FragColor.b = float(floor(gl_FragColor.b * 5.0 ) / 5.0);
-        `
-    }
-
-    static get addBackground () {
-        return `
-            gl_FragColor.r += pixel.r * 0.9;
-            gl_FragColor.g += pixel.g * 0.9;
-            gl_FragColor.b += pixel.b * 0.9;
         `
     }
 
@@ -115,9 +92,6 @@ class Filters {
             sobel_y.b = avg_y;
 
             vec3 sobel = vec3(sqrt((sobel_x.rgb * sobel_x.rgb) + (sobel_y.rgb * sobel_y.rgb)));
-            sobel.r = surfaceR * (1.0 - sobel.r) + sobel.r * edgeR;
-            sobel.g = surfaceG * (1.0 - sobel.g) + sobel.g * edgeG;
-            sobel.b = surfaceB * (1.0 - sobel.b) + sobel.b * edgeB;
 
             vec4 newColour = vec4( sobel, 1.0 );
         `
@@ -161,9 +135,6 @@ class Filters {
             sobel_y.b = avg_y;
 
             vec3 sobel = vec3(sqrt((sobel_x.rgb * sobel_x.rgb) + (sobel_y.rgb * sobel_y.rgb)));
-            sobel.r = surfaceR * (1.0 - sobel.r) + sobel.r * edgeR;
-            sobel.g = surfaceG * (1.0 - sobel.g) + sobel.g * edgeG;
-            sobel.b = surfaceB * (1.0 - sobel.b) + sobel.b * edgeB;
 
             vec4 newColour = vec4(sobel, 1.0 );
         `

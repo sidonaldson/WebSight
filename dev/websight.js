@@ -78,38 +78,6 @@ window.addEventListener("load", async () => {
                 intensity: {
                     type: "f",
                     value: 1.0
-                },
-                edgeR: {
-                    type: "f",
-                    value: 1.0
-                },
-                edgeG: {
-                    type: "f",
-                    value: 1.0
-                },
-                edgeB: {
-                    type: "f",
-                    value: 1.0
-                },
-                surfaceR: {
-                    type: "f",
-                    value: 0.0
-                },
-                surfaceG: {
-                    type: "f",
-                    value: 0.0
-                },
-                surfaceB: {
-                    type: "f",
-                    value: 0.0
-                },
-                lightCols: {
-                    type: "t",
-                    value: [...new Array(10)].map(v => Math.floor(Math.random() * 10 * video.width / 60))
-                },
-                lightColsEnds: {
-                    type: "t",
-                    value: [...new Array(10)].map(v => Math.floor(Math.random() * 10 * video.height / 50))
                 }
             },
             vertexShader: vertexShaderSource.text,
@@ -244,26 +212,12 @@ window.addEventListener("load", async () => {
         boxMaterial.needsUpdate = true
     }
 
-    window.setEdgeColour = ({r = 0, g = 0, b = 0}) => {
-        boxMaterial.uniforms.edgeR.value = r / 255
-        boxMaterial.uniforms.edgeG.value = g / 255
-        boxMaterial.uniforms.edgeB.value = b / 255
-    }
-
-    // For reverting to, when toggling back to colour, from background
-    const surfaceCache = {r: 0, g: 0, b: 0}
-
-    window.setSurfaceColour = ({r = 0, g = 0, b = 0}) => {
-        boxMaterial.uniforms.surfaceR.value = surfaceCache.r = r / 255
-        boxMaterial.uniforms.surfaceG.value = surfaceCache.g = g / 255
-        boxMaterial.uniforms.surfaceB.value = surfaceCache.b = b / 255
-    }
-
     window.toggleReducedColours = () => {
         Filters.hasReducedColours = !Filters.hasReducedColours
         boxMaterial.fragmentShader = Filters.compileShader(Filters.shader)
         boxMaterial.needsUpdate = true
     }
+
 
     initUI()
 })
