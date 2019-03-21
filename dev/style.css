@@ -1,0 +1,134 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background-color: black;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.ui-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#controls {
+    width: 33vw;
+    margin: 0 auto;
+    padding: 10px;
+    overflow-y: scroll;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+#controls .filters {
+    display: flex;
+    justify-content: center;
+    flex-flow: row nowrap;
+}
+
+#controls .filters > * {
+    margin: 5px;
+}
+
+#controls .sliders {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    margin: 8px 0;
+}
+
+#controls input,
+#controls button {
+    cursor: pointer;
+    text-align: center;
+}
+
+#controls, button {
+    color: black;
+    font-weight: bold;
+}
+
+select {
+    font-weight: bold;
+}
+
+label[for="radius-slider"] {
+    display: flex;
+    align-items: center;
+}
+
+.filter-button {
+    min-width: 120px;
+    min-height: 50px;
+    font-size: 1.3em;
+    border: 0;
+    background: #bbb;
+    border-radius: 3px;
+}
+
+.filter-button:disabled {
+    background: none;
+}
+
+#controls .colours input {
+    height: 30px;
+    max-width: 90px;
+    margin: 0 10px;
+    font-size: 1.3em;
+}
+
+#controls .colours {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+}
+
+#controls .colours > div {
+    flex-grow: 1;
+    width: 50%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    margin: 0 10px;
+}
+
+#controls .colours .colour-checkboxes {
+    text-align: right;
+}
+
+#controls .colours label {
+    line-height: 20px;
+}
+
+#controls .colours input,
+#controls .colours span {
+    vertical-align: middle;
+}
+
+#controls .colours span, input {
+    font-size: 110%;
+}
+
+#colourBlindness {
+    font-size: 1em;
+    margin: 10px;
+}
+
+img, audio {
+    display: none;
+}
+
+input[type="checkbox"] {
+    height: 20px;
+    width: 20px;
+}
+
+input[type=checkbox] {
+    width: 25px !important;
+    height: 25px !important;
+    margin: 5px !important;
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+}

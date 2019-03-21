@@ -36,8 +36,6 @@ const classCategories = {
 
 window.addEventListener("load", async () => {
 
-    // YOLO
-    inferenceIntervalInput.value = inferenceInterval
 
     const inferenceCanvas = document.createElement("canvas")
     inferenceCanvas.height = 416
@@ -58,37 +56,6 @@ window.addEventListener("load", async () => {
 
     if (navigator.getVRDisplays) {
         navigator.getVRDisplays().then(displays => displays.length && (vrDisplay = displays[0]))
-    }
-
-    // Button to enable VR mode
-    enterVRButton.addEventListener("click", () => {
-        const controls = document.getElementById("controls")
-
-        if (enterVRButton.classList.contains("small")) {
-            closeVR()
-            enterVRButton.classList.remove("small")
-            controls.classList.remove("hidden")
-        } else {
-            if (navigator.userAgent.includes("Mobile VR")) {
-                vrDisplay.requestPresent([{ source: renderer.domElement }])
-            } else {
-                effect = new THREE.StereoEffect(renderer)
-                effect.separation = 0
-                effect.setSize(window.innerWidth, window.innerHeight)
-            }
-
-            // Shrink VR button
-            enterVRButton.classList.add("small")
-
-            // Hide controls
-            controls.classList.add("hidden")
-        }
-    })
-
-    const closeVR = () => {
-        effect = new THREE.VREffect(renderer)
-        effect.separation = 0
-        effect.setSize(window.innerWidth, window.innerHeight)
     }
 
     // Scenes and camera
@@ -516,7 +483,6 @@ window.addEventListener("load", async () => {
 
         if (off) {
             Filters.fire = false
-            audioElem.pause()
             boxMaterial.uniforms.fireTimer.value = 10000000
             clearInterval(Filters.fireInterval)
             window.setShader(Filters.shader)
@@ -547,12 +513,6 @@ window.addEventListener("load", async () => {
             Filters.fireTimer += 8
             boxMaterial.uniforms.fireTimer.value = (Filters.fireTimer % fire.height/2) / fire.height
         }, 2)
-
-        // Audio
-        if (Filters.fire) {
-            // audioElem.currentTime = 47
-            audioElem.play()
-        }
     }
 
     initUI()
