@@ -2,28 +2,6 @@
 
 const initUI = () => {
 
-    Filters.colourBlindness = "none"
-    const filters = Filters.availableFilters
-    const initialFilter = "sobel3x3"
-
-    window.setShader(initialFilter)
-
-    const controlsRoot = document.getElementById("controls")
-    const filtersRoot = controlsRoot.getElementsByClassName("filters")[0]
-
-    // Create filter buttons
-    const filterButtons = filters.map((filter) => {
-        const button = document.createElement("button")
-        button.dataset.filter = filter.toLowerCase().replace(/\s|\-/g, "")
-        button.innerText = filter
-        button.classList.add("filter-button")
-
-        if (button.dataset.filter === initialFilter) button.disabled = true
-
-        filtersRoot.appendChild(button)
-        return button
-    }, [])
-
     // Radius slider
     const radiusSlider = document.getElementById("radius-slider")
     const radiusValue = document.getElementById("radius-value")
@@ -32,21 +10,17 @@ const initUI = () => {
     // Intensity slider
     const intensitySlider = document.getElementById("intensity-slider")
     const intensityValue = document.getElementById("intensity-value")
-    intensitySlider.value = 100
+    intensitySlider.value = 1
 
     // Intensity slider
     const gammaSlider = document.getElementById("gamma-slider")
     const gammaValue = document.getElementById("gamma-value")
-    gammaSlider.value = 100
+    gammaSlider.value = 0
 
-    // Events
-    document.addEventListener("click", ({ target }) => {
-        if (target.dataset.filter) {
-            window.setShader(target.dataset.filter)
-            filterButtons.forEach(button => button.disabled = false)
-            target.disabled = true
-        }
-    })
+    // Threshold slider
+    const thresholdSlider = document.getElementById("threshold-slider")
+    const thresholdValue = document.getElementById("threshold-value")
+    thresholdSlider.value = 0
 
     const updateRadius = ({ target }) => {
         window.setRadius(target.value / 100)
@@ -74,6 +48,15 @@ const initUI = () => {
 
     gammaSlider.addEventListener("mousemove", updateGamma)
     gammaSlider.addEventListener("change", updateGamma)
+
+    const updateThreshold = ({ target }) => {
+        window.setThreshold(target.value === "0" ? 0.01 : target.value / 100)
+        thresholdValue.innerText = `${target.value}%`
+    }
+    updateThreshold({target: thresholdSlider})
+
+    thresholdSlider.addEventListener("mousemove", updateThreshold)
+    thresholdSlider.addEventListener("change", updateThreshold)
 
     invertedCheckbox.addEventListener("click", () => toggleInverted())
     reducedColoursCheckbox.addEventListener("click", () => toggleReducedColours())

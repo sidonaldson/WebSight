@@ -31,6 +31,8 @@
     "grunt-contrib-watch": "^1.1.0"
   },
   "dependencies": {
-    "grunt-contrib-uglify-es": "^3.3.0"
+    "grunt-contrib-uglify-es": "^3.3.0",
+    "rgbquant": "^1.1.2",
+    "stackblur-canvas": "^2.2.0"
   }
 }

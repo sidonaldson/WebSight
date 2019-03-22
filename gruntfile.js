@@ -9,7 +9,7 @@ module.exports = grunt => {
                 dest: "dist/websight.concat.js"
             },
             "deps": {
-                src: ["lib/VREffect.js"],
+                src: ["node_modules/rgbquant/src/rgbquant.js", "node_modules/stackblur-canvas/dist/stackblur.js"],
                 dest: "dist/dependencies.concat.js"
             }
         },
